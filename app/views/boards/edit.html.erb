@@ -1,0 +1,21 @@
+<%= form_with model: @board, method: :put do |form| %>
+  <div>
+    <% if @board.has_winner? %>
+      <p data-test="winner-message"> <%= @board.winner %> won </p>
+    <% end %>
+    <% if @board.tied? %>
+      <p data-test="tie-message">It is a tie!</p>
+    <% end %>
+    <div data-test="tic-tac-toe-grid">
+      <% @board.cells.chars.each_slice(3) do |cell| %>
+        <%= cell %>
+      <% end %>
+    </div>
+  </div>
+  <% unless @board.tied? || @board.has_winner? %>
+    <div data-test="filler-input">
+      <%= form.text_field :position %>
+      <%= form.submit %>
+    </div>
+  <% end %>
+<% end %>
