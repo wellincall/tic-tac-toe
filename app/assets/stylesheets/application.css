@@ -13,3 +13,49 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  padding: 0 2rem;
+}
+.tic-tac-toe-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2rem;
+  grid-auto-rows: 1fr;
+  height: 50vh;
+  background-color: #2196F3;
+}
+
+.tic-tac-toe-grid .cell {
+  padding: 2rem;
+  background-color: white;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.tic-tac-toe-grid .cell--selected {
+  opacity: 0.85;
+}
+
+.tic-tac-toe-grid .cell input[type='radio'] {
+  display: none;
+}
+
+h1 {
+  padding: 1rem;
+}
+
+h1.winner {
+  color: #0F5132;
+  background-color: #D1E7DD;
+}
+
+h1.current-player {
+  color: #141619;
+  background-color: #D3D3D4;
+}
+
+h1.tie {
+  color: #664D03;
+  background-color: #FFF3CD;
+}
