@@ -8,8 +8,9 @@ Then you can start it by running:
 $ docker compose up
 ```
 
-For the initial setup, after installing them, you need to create the databases:
+For the initial setup, after starting the containers, it is necessary to set the databases:
 
 ```sh
 $ docker compose run web rake db:create
+$ docker compose run web rake db:migrate
 ```
