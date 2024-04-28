@@ -2,7 +2,9 @@
 
 class BoardsController < ApplicationController
   before_action :set_board, only: [:edit, :update]
+
   def index
+    @boards = Board.all.order(id: :desc)
   end
 
   def create
