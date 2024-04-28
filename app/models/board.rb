@@ -2,10 +2,10 @@
 
 class Board < ApplicationRecord
   def fill(position)
-    return :invalid if position < 1 || position > 9
-    return :invalid if cells[position - 1] != " "
+    return :invalid if position < 0 || position > 8
+    return :invalid if cells[position] != " "
 
-    cells[position - 1] = current_player
+    cells[position] = current_player
     :ok
   end
 

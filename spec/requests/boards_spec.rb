@@ -51,12 +51,12 @@ RSpec.describe "Board endpoints" do
     it "stores current player in given position" do
       put board_path(board), params: params
 
-      expect(board.reload.cells).to eq("X" + " " * 8)
+      expect(board.reload.cells).to eq(" X" + " " * 7)
     end
 
     context "when current move ends the game" do
       let(:board) { Board.create(current_player: "X", cells: "XO XO    ") }
-      let(:params) { { board: { position: 7 } } }
+      let(:params) { { board: { position: 6 } } }
 
       it "sets current player as winner" do
         put board_path(board), params: params
@@ -86,6 +86,13 @@ RSpec.describe "Board endpoints" do
 
       html_response = Nokogiri::HTML(response.body)
       expect(html_response.css("[data-test='filler-input']")).not_to be_empty
+    end
+
+    it "displays current player message" do
+      get edit_board_path(board)
+
+      html_response = Nokogiri::HTML(response.body)
+      expect(html_response.css("[data-test='current-player-message']")).not_to be_empty
     end
 
     context "when it is a tie" do

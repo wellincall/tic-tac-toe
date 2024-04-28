@@ -1,21 +1,43 @@
 <%= form_with model: @board, method: :put do |form| %>
   <div>
     <% if @board.has_winner? %>
-      <p data-test="winner-message"> <%= @board.winner %> won </p>
+      <h1 class="winner" data-test="winner-message"> <%= @board.winner %> won </h1>
+    <% elsif @board.tied? %>
+      <h1 class="tie" data-test="tie-message">It is a tie!</h1>
+    <% else %>
+      <h1 class="current-player" data-test="current-player-message"><%= @board.current_player %> is playing</h1>
     <% end %>
-    <% if @board.tied? %>
-      <p data-test="tie-message">It is a tie!</p>
-    <% end %>
-    <div data-test="tic-tac-toe-grid">
-      <% @board.cells.chars.each_slice(3) do |cell| %>
-        <%= cell %>
+    <div class="tic-tac-toe-grid" data-test="tic-tac-toe-grid">
+      <% @board.cells.each_char.with_index do |cell, index| %>
+          <% if cell == " " %>
+            <label class="cell" data-toggle-selected>
+              <%= form.radio_button :position, index %>
+            </label>
+          <% else %>
+            <label class="cell">
+              <%= cell %>
+            </label>
+          <% end %>
       <% end %>
     </div>
   </div>
   <% unless @board.tied? || @board.has_winner? %>
     <div data-test="filler-input">
-      <%= form.text_field :position %>
       <%= form.submit %>
     </div>
   <% end %>
 <% end %>
+
+<script>
+  window.addEventListener("DOMContentLoaded", (event) => {
+    const cells = document.querySelectorAll("[data-toggle-selected]");
+    cells.forEach(cell => {
+      cell.addEventListener("click", (event) => {
+        if (event.target.tagName == "LABEL") {
+          cells.forEach(cell => cell.classList.remove("cell--selected"));
+          event.target.classList.add("cell--selected");
+        }
+      });
+    });
+  });
+</script>

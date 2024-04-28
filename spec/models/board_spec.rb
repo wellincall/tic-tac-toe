@@ -8,7 +8,7 @@ RSpec.describe Board do
       board = Board.new(current_player: "X")
       board.fill(3)
 
-      expect(board.cells[2]).to eq("X")
+      expect(board.cells[3]).to eq("X")
     end
 
     it "returns :ok symbol" do
@@ -21,21 +21,21 @@ RSpec.describe Board do
       it "does not change board" do
         board = Board.new(current_player: "X", cells: "X" + " " * 8)
 
-        expect { board.fill(1) }.not_to change { board.cells }
+        expect { board.fill(0) }.not_to change { board.cells }
       end
 
       it "returns :invalid symbol" do
         board = Board.new(current_player: "X", cells: "X" + " " * 8)
 
-        expect(board.fill(1)).to eq(:invalid)
+        expect(board.fill(0)).to eq(:invalid)
       end
     end
 
-    context "when position is outside range 1-9" do
+    context "when position is outside range 0-8" do
       it "does not change board" do
         board = Board.new(current_player: "X")
 
-        expect { board.fill(10) }.not_to change { board.cells }
+        expect { board.fill(9) }.not_to change { board.cells }
       end
 
       it "returns :invalid symbol" do
