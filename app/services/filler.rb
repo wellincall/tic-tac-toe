@@ -9,7 +9,7 @@ class Filler
     play_response = board.fill(position)
     return invalid_action_response if play_response == :invalid
 
-    game_ended = board.has_winner?
+    game_ended = board.has_winner? || board.tied?
     {
       success: true,
       next_player: game_ended ? "" : board.next_player,
