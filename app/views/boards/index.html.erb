@@ -1,3 +1,24 @@
 <%= form_tag boards_path, method: :post do %> 
   <%= button_tag "Start game", data: { test: "start-game" } %>
 <% end %>
+
+<h1>Previous games</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Board</th>
+      <th>Ended?</th>
+      <th>Who is playing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @boards.each do |board|%>
+      <tr>
+        <td><%= link_to "Board #{board.id}", edit_board_path(board.id) %></td>
+        <td><%= board.has_winner? || board.tied? %></td>
+        <td><%= board.current_player %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
